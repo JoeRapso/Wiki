@@ -20,6 +20,10 @@ def search(request):
     if request.method == "POST":
         q = request.POST.get('q')
         q = q.upper()
-    if q in util.list_entries():
-        return render(request, "encyclopedia/search.html", {"q": q})
+        returned_list = []
+        list_call = util.list_entries()
+        returned_list.append(list_call)
+    
+    # if q in util.list_entries():
+        return render(request, "encyclopedia/search.html", {"returned_list": returned_list})
 
