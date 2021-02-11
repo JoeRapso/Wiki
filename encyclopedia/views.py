@@ -4,13 +4,9 @@ from django import forms
 
 from . import util
 
-class SearchForm(forms.Form):
-    q = forms.CharField(label="New Task")
-
 def index(request):
     return render(request, "encyclopedia/index.html", {
         "entries": util.list_entries(),
-        "form": SearchForm()
     })
 def entry(request, name):
     try:
@@ -21,8 +17,9 @@ def entry(request, name):
     except: 
         return HttpResponse('404 File not found', status=404)
 def search(request):
-    return render(request, "encyclopedia/search.html")
-
     if request.method == "POST":
-        q = q(request.POST)
-        q.append(q)
+        q = request.POST.get('q')
+        q = q.upper()
+    if q in util.list_entries():
+        return render(request, "encyclopedia/search.html", {"q": q})
+
