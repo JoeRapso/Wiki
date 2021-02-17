@@ -1,4 +1,4 @@
-import markdown2
+import markdown2, re
 from django.shortcuts import render, HttpResponse
 from django import forms
 
@@ -21,9 +21,11 @@ def search(request):
         q = request.POST.get('q')
         q = q.upper()
         returned_list = []
-        list_call = util.list_entries()
-        returned_list.append(list_call)
-    
+    for i in util.list_entries():
+        returned_list.append(i)
+    res = [x for x in returned_list if re.search(q, x)] 
+    # for x in returned_list:
+        # if q in returned_list:
     # if q in util.list_entries():
-        return render(request, "encyclopedia/search.html", {"returned_list": returned_list})
+    return render(request, "encyclopedia/search.html", {"q": str(res)})
 
