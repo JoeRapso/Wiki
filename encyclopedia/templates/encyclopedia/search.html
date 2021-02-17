@@ -6,7 +6,12 @@
 
 {% block body %}
     <h1>Results</h1>
-    {{returned_list}}
 
+    <ul>
+        {% for match in matching_list %}
+            <li><a href="wiki/{{match}}">{{ match }}</li>
+        {% endfor %}
+    </ul>
+    {{q}}
 
 {% endblock %}
