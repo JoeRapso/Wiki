@@ -5,17 +5,16 @@
 {% endblock %}
 
 {% block body %}
-    {{content|safe}}
-    <form action="{% url 'editPage' %}" method="post">
+    <form action="{% url 'editedPage' %}" method="post">
         {% csrf_token %}
-        <div class="w-25 p-3" style="display: none;">
+        <div class="w-25 p-3">
             <label class="form-label"><h5>Page title</h5></label>
-            <input type="text" class="form-control" name="title" value="{{title|safe}}">
+            <input type="text" class="form-control" name="title" value="{{title}}">
         </div>
-        <div class="w-75 p-3" style="display: none;">
+        <div class="w-75 p-3">
             <label class="form-label"><h5>Page content</h5></label>
             <textarea class="form-control" rows="15" name="content">{{content|safe}}</textarea>
         </div>
-        <button type="submit" class="btn btn-primary">Edit</button>
+        <button type="submit" class="btn btn-primary">Save</button>
     </form>
 {% endblock %}
